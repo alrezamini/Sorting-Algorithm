@@ -1,10 +1,10 @@
 #include <iostream>
+#include "stack.h"
 using namespace std;
 
-struct node{int value=NULL;struct node *left=NULL;struct node *right=NULL;};
 class BT{
-    private:node *cr=new node();
-    public:void add(int);void minimum();void maximum();void ch(int,node *a);
+    public:node *cr=NULL;Stack stack_obj;
+    public:void add(int);void minimum();void maximum();void ch(int,node *a);void sort(node *p);
 };
 
 int main()
@@ -18,6 +18,9 @@ int main()
     obj.add(26);obj.add(20);
     obj.minimum();   // Get The Minimum Number
     obj.maximum();   // Get The Maximum Number
+    cout<<"Sort : ";
+    obj.sort(obj.cr);
+    cout<<"\n";
 }
 
 void BT::ch(int value,node *a){
@@ -31,7 +34,7 @@ void BT::ch(int value,node *a){
 }
 
 void BT::add(int value){
-    if(cr->value==NULL){cr->value=value;}
+    if(cr==NULL){cr=new node();cr->value=value;}
     else{ch(value,cr);}
 }
 
@@ -39,12 +42,23 @@ void BT::minimum(){
     node *tmp=cr;
     while(tmp->left!=NULL){tmp=tmp->left;}
     cout<<tmp->value<<" Is The Minimum Number"<<endl;
-    delete tmp;
 }
 
 void BT::maximum(){
     node *tmp=cr;
     while(tmp->right!=NULL){tmp=tmp->right;}
     cout<<tmp->value<<" Is The Maximum Number"<<endl;
-    delete tmp;
+}
+
+void BT::sort(node *p){
+    node *nd=p;
+    while(nd!=NULL){
+        stack_obj.Push(nd);
+        nd=nd->left;
+    }
+    while(stack_obj.CheckStatus()!=1){
+        node *pp=stack_obj.Pop();
+        cout<<pp->value<<" ";
+        if(pp->right!=NULL){sort(pp->right);}
+    }
 }
