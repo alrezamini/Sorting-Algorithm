@@ -52,9 +52,8 @@ void BT::maximum(){
 
 void BT::sort(node *p){
     node *nd=p;
-    while(nd!=NULL){
+    for(nd;nd!=NULL;nd=nd->left){
         stack_obj.Push(nd);
-        nd=nd->left;
     }
     while(stack_obj.CheckStatus()!=1){
         node *pp=stack_obj.Pop();
