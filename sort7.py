@@ -9,7 +9,6 @@ def srt(lst):
         lst[x]=s
     return lst
 
-
 def rt_ch(lst):
     return [chr(x) for x in lst]
 
